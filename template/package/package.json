@@ -1,0 +1,21 @@
+{
+  "name": "@pike/package",
+  "version": "1.0.0",
+  "description": "pike package template",
+  "main": "lib/index.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "types": "./types.d.ts",
+  "private": false,
+
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+
+  "dependencies": {
+  },
+
+  "devDependencies": {
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@pike/server",
+  "version": "1.0.0",
+  "description": "pike database integration powered by typeorm",
+  "main": "lib/index.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "private": false,
+
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+
+  "dependencies": {
+    "@pike/config": "1.0.0",
+    "fast-glob": "^2.2.7",
+    "fastify": "^2.5.0",
+    "reflect-metadata": "^0.1.13"
+  },
+
+  "devDependencies": {
+  }
+}

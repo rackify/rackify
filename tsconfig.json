@@ -1,0 +1,15 @@
+{
+  "extends": "./config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@pike/*": ["packages/*"]
+    }
+  },
+
+  "exclude": [
+    "lib",
+    "packages",
+    "node_modules"
+  ]
+}

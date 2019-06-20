@@ -1,0 +1,16 @@
+{
+  "name": "@pike/config",
+  "version": "1.0.0",
+  "description": "pike package configuration",
+  "main": "lib/index.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {}
+}

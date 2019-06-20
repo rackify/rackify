@@ -1,0 +1,21 @@
+{
+  "name": "@pike/test",
+  "version": "1.0.0",
+  "description": "pike testing utilities",
+  "main": "lib/index.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "private": false,
+
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+
+  "dependencies": {
+    "@pike/config": "1.0.0"
+  },
+
+  "devDependencies": {
+  }
+}

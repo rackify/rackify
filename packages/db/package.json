@@ -1,0 +1,22 @@
+{
+  "name": "@pike/db",
+  "version": "1.0.0",
+  "description": "pike database integration powered by typeorm",
+  "main": "lib/index.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "private": false,
+
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.18"
+  },
+
+  "devDependencies": {
+  }
+}
