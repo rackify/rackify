@@ -2,7 +2,7 @@ import { pike, Get, Route } from '@pike/server';
 
 @Route()
 class IndexRoute {
-  @Get('/')
+  @Get('/class-reference')
   async getIndex() {
     return { hello: 'world' };
   }
@@ -10,7 +10,8 @@ class IndexRoute {
 
 export async function createApp() {
   const app = await pike({
-    routes: [IndexRoute]
+    controllers: [IndexRoute, '**/*.controller.ts'],
+    cwd: __dirname
   });
 
   return app;

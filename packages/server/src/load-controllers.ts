@@ -1,24 +1,32 @@
-import 'reflect-metadata';
-
 import glob from 'fast-glob';
-import { getConfig } from '@pike/config';
+import { getConfig, getMetadata, setMetadata } from '@pike/config';
 
-import { RouteKey } from './decorators';
+import { RouteKey, ContextKey } from './keys';
 import { PikeServer } from './types';
+import { getInstance } from './services';
 
-const loadRoute = (app: PikeServer, potentialRoutable: any) => {
-  if (typeof potentialRoutable !== 'object' && typeof potentialRoutable !== 'function') {
+
+const loadRoute = (app: PikeServer, Controller: any) => {
+  if (typeof Controller !== 'function') {
     return;
   }
 
-  const route = Reflect.getOwnMetadata(RouteKey, potentialRoutable);
-  if (!route) {
+  const routeMap = getMetadata(Controller, RouteKey);
+  if (!routeMap) {
     return;
   }
 
-  for (let m in route) {
-    const method = route[m];
-    app.route(method);
+  const controller = getInstance(app, Controller);
+
+  for (let m in routeMap) {
+    const route = routeMap[m];
+    route.handler = controller[m].bind(controller);
+    if (!route.url) {
+      const context = getMetadata(Controller, ContextKey) || { name: 'unkown' };
+      throw new Error(`PikeError: Could not resolve route for controller method: ${context.name}`);
+    }
+    app.log.debug(`Registering route at ${m} ${route}`);
+    app.route(route);
   }
 };
 
@@ -31,7 +39,7 @@ const loadRoutesFromModule = (app: PikeServer, controllerModule: any) => {
 export const loadControllers = async (app: PikeServer) => {
   const config = getConfig(app);
 
-  const { globs, routes } = config.routes.reduce((memo, cfg) => {
+  const { globs, routes } = config.controllers.reduce((memo, cfg) => {
     if (typeof cfg === 'string') {
       memo.globs.push(cfg);
     } else {
@@ -40,11 +48,14 @@ export const loadControllers = async (app: PikeServer) => {
     return memo;
   }, { globs: [], routes: [] } as any );
 
-  const controllers = [...glob.sync(globs, { absolute: true }), ...routes];
-
+  const controllers = [...glob.sync(globs, { absolute: true, cwd: config.cwd }), ...routes];
   for (let i=0;i < controllers.length; i++) {
-    let fileImport = controllers[i] as string;
-    const controllerModule = await import(fileImport);
-    loadRoutesFromModule(app, controllerModule);
+    let controller = controllers[i];
+    if (typeof controller === 'string') {
+      const controllerModule = await import(controller);
+      loadRoutesFromModule(app, controllerModule);
+    } else {
+      loadRoute(app, controller);
+    }
   }
 };

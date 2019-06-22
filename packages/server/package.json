@@ -15,8 +15,7 @@
   "dependencies": {
     "@pike/config": "1.0.0",
     "fast-glob": "^2.2.7",
-    "fastify": "^2.5.0",
-    "reflect-metadata": "^0.1.13"
+    "fastify": "^2.5.0"
   },
 
   "devDependencies": {

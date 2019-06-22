@@ -3,12 +3,24 @@ import { PikeServer } from '@pike/server';
 
 type TestRequestOptions = Partial<fastify.HTTPInjectOptions> | string;
 
+export interface TestRequestResponse extends fastify.HTTPInjectResponse {
+  body: any
+}
+
 export interface TestApp {
-    request: (opts?: TestRequestOptions) => Promise<fastify.HTTPInjectResponse>
-    app: any;
+  request: (opts?: TestRequestOptions) => Promise<TestRequestResponse>
+  app: any;
 }
 
 export type CreateAppFunc = () => Promise<PikeServer>;
+
+const tryParse = (payload: string) => {
+  try {
+    return JSON.parse(payload);
+  } catch (err) {
+    return payload;
+  }
+};
 
 export function bootstrapTestHarness(createApp: CreateAppFunc) {
   return async function createTestApp(): Promise<TestApp> {
@@ -19,13 +31,15 @@ export function bootstrapTestHarness(createApp: CreateAppFunc) {
         opts = { url: opts };
       }
 
-      const request = app.inject({
+      const response = await app.inject({
         method: 'GET',
         url: '/',
         ...opts
-      });
+      }) as TestRequestResponse;
 
-      return request;
+      response.body = tryParse(response.payload);
+
+      return response;
     };
 
     return { app, request: appRequest };

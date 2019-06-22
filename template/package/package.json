@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "author": "Travis Peterson",
   "license": "MIT",
-  "types": "./types.d.ts",
   "private": false,
 
   "scripts": {

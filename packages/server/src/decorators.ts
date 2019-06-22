@@ -1,20 +1,51 @@
-import 'reflect-metadata';
+import { join } from 'path';
+import { getMetadata, setMetadata } from '@pike/config';
+import { RouteKey, ContextKey } from './keys';
 
-export const RouteKey = Symbol('route-definition');
-const GetKey = Symbol('GET');
+enum RequestMethod {
+  GET,
+  POST,
+  PUT,
+  DELETE,
+  PATCH,
+  ALL,
+  OPTIONS,
+  HEAD,
+}
 
-export const Get = (url: string) => (target: any, key: string, descriptor: PropertyDescriptor) => {
-  const currentMetadata = Reflect.getOwnMetadata(RouteKey, target.constructor) || {};
-  Reflect.defineMetadata(RouteKey, {
-    ...currentMetadata,
-    GET: {
-      method: 'GET',
-      url,
-      handler: target[key].bind(target)
-    }
-  }, target.constructor);
+const createRequestMappingDecorator = (requestMethod: RequestMethod) => (url: string = '') => (
+  target: any,
+  key: string,
+  descriptor: PropertyDescriptor
+) => {
+  const routeData = getMetadata(target.constructor, RouteKey) || {};
+  const method = RequestMethod[requestMethod];
+  const handler = target[key].bind(target);
+  const name = `${target.constructor.name}.${key}`;
+
+  setMetadata(target, ContextKey, { name, key });
+  setMetadata(target.constructor, RouteKey, {
+    ...routeData,
+    [key]: { method, url: join(url), handler }
+  });
 };
 
+export const Get = createRequestMappingDecorator(RequestMethod.GET);
+export const Post = createRequestMappingDecorator(RequestMethod.POST);
+export const Put = createRequestMappingDecorator(RequestMethod.PUT);
+export const Delete = createRequestMappingDecorator(RequestMethod.DELETE);
+export const All = createRequestMappingDecorator(RequestMethod.ALL);
+export const Options = createRequestMappingDecorator(RequestMethod.OPTIONS);
+export const Head = createRequestMappingDecorator(RequestMethod.HEAD);
+
 export const Route = (path: string = '') => (constructor: Function) => {
-  // Reflect.defineMetadata(RouteKey, path, constructor);
+  const routeData = getMetadata(constructor, RouteKey);
+  Object.keys(routeData)
+    .forEach((routeKey) => {
+      const route = routeData[routeKey];
+      const url = join(path, route.url);
+      routeData[routeKey] = { ...route, url };
+    });
+
+  setMetadata(constructor, RouteKey, routeData);
 };

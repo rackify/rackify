@@ -4,7 +4,7 @@
       "prepare": "lerna bootstrap",
       "lerna": "lerna",
       "build": "lerna run build",
-      "build:watch": "lerna exec yarn build:watch",
+      "build:watch": "lerna exec --parallel -- yarn build:watch",
       "test": "jest"
     },
     "devDependencies": {

@@ -10,7 +10,6 @@
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {}
 }
