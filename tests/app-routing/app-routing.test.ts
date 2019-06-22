@@ -83,7 +83,7 @@ describe('app route definition', () => {
       app = await testRoute(Controller);
     });
 
-    it('should properly bind the controller method', async () => {
+    it('should bind the controller method to the instance', async () => {
       const response = await app.request('/');
       expect(response.body).toEqual({hello: 'foo'});
     });
@@ -104,6 +104,21 @@ describe('app route definition', () => {
 
       const response = await app.request('/');
       expect(response.body).toEqual({hello: 'world'});
+    });
+
+    it('should handle a route method and class with no defined paths', async () => {
+      @Route()
+      class Controller {
+        @Get()
+        async get() { return { hello: 'world' }; }
+      }
+
+      try {
+        await testRoute(Controller);
+        fail('expected test app creation to throw an error');
+      } catch (err) {
+        expect(err.message).toEqual(expect.any(String));
+      }
     });
   });
 });

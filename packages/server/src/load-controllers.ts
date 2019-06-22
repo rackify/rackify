@@ -1,5 +1,5 @@
 import glob from 'fast-glob';
-import { getConfig, getMetadata, setMetadata } from '@pike/config';
+import { getConfig, getMetadata } from '@pike/config';
 
 import { RouteKey, ContextKey } from './keys';
 import { PikeServer } from './types';
@@ -21,9 +21,10 @@ const loadRoute = (app: PikeServer, Controller: any) => {
   for (let m in routeMap) {
     const route = routeMap[m];
     route.handler = controller[m].bind(controller);
-    if (!route.url) {
-      const context = getMetadata(Controller, ContextKey) || { name: 'unkown' };
-      throw new Error(`PikeError: Could not resolve route for controller method: ${context.name}`);
+
+    if (!route.url || route.url === '.') {
+      const context = getMetadata(controller, ContextKey) || { name: 'unkown', file: 'unknown' };
+      throw new Error(`PikeError: Could not resolve route for controller method: ${context.name} in ${context.file}\nDid you forget to define a route in either the 'Route' or method decorators?`);
     }
     app.log.debug(`Registering route at ${m} ${route}`);
     app.route(route);
