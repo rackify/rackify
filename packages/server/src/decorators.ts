@@ -8,7 +8,6 @@ enum RequestMethod {
   PUT,
   DELETE,
   PATCH,
-  ALL,
   OPTIONS,
   HEAD,
 }
@@ -35,7 +34,7 @@ function getContextFileName() {
   return 'unknown file';
 }
 
-const createRequestMappingDecorator = (requestMethod: RequestMethod) => (url: string = '') => (
+const createRequestMappingDecorator = (requestMethod: RequestMethod) => (path: string = '') => (
   target: any,
   key: string,
   descriptor: PropertyDescriptor
@@ -44,19 +43,23 @@ const createRequestMappingDecorator = (requestMethod: RequestMethod) => (url: st
   const method = RequestMethod[requestMethod];
   const handler = target[key].bind(target);
   const name = `${target.constructor.name}.${key}`;
+  let url = posix.join(path);
+  if (!/^\//i.test(url)) {
+    url = `/${url}`;
+  }
 
   setMetadata(target, ContextKey, { name, key, file: getContextFileName() });
   setMetadata(target.constructor, RouteKey, {
     ...routeData,
-    [key]: { method, url: posix.join(url), handler }
+    [key]: { method, url, handler }
   });
 };
 
 export const Get = createRequestMappingDecorator(RequestMethod.GET);
 export const Post = createRequestMappingDecorator(RequestMethod.POST);
 export const Put = createRequestMappingDecorator(RequestMethod.PUT);
+export const Patch = createRequestMappingDecorator(RequestMethod.PATCH);
 export const Delete = createRequestMappingDecorator(RequestMethod.DELETE);
-export const All = createRequestMappingDecorator(RequestMethod.ALL);
 export const Options = createRequestMappingDecorator(RequestMethod.OPTIONS);
 export const Head = createRequestMappingDecorator(RequestMethod.HEAD);
 
@@ -65,7 +68,10 @@ export const Route = (path: string = '') => (constructor: Function) => {
   Object.keys(routeData)
     .forEach((routeKey) => {
       const route = routeData[routeKey];
-      const url = posix.join(path, route.url);
+      let url = posix.join(path, route.url);
+      if (!/^\//i.test(url)) {
+        url = `/${url}`;
+      }
       routeData[routeKey] = { ...route, url };
     });
 

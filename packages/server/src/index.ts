@@ -1,5 +1,15 @@
 export { createApp as pike } from './create-app';
 
-export { PikeServer } from './types';
+export { PikeServer, PikeReply, PikeRequest } from './types';
 
-export { Get, Route } from './decorators';
+export {
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  Options,
+  Head,
+
+  Route
+} from './decorators';
