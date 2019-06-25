@@ -1,6 +1,7 @@
 import { posix } from 'path';
 import { getMetadata, setMetadata } from '@pike/config';
-import { RouteKey, ContextKey } from './keys';
+import { RouteKey, ContextKey, InjectedArgs } from './keys';
+import { getRequestContext } from './context';
 
 enum RequestMethod {
   GET,
@@ -36,8 +37,7 @@ function getContextFileName() {
 
 const createRequestMappingDecorator = (requestMethod: RequestMethod) => (path: string = '') => (
   target: any,
-  key: string,
-  descriptor: PropertyDescriptor
+  key: string
 ) => {
   const routeData = getMetadata(target.constructor, RouteKey) || {};
   const method = RequestMethod[requestMethod];
@@ -76,4 +76,65 @@ export const Route = (path: string = '') => (constructor: Function) => {
     });
 
   setMetadata(constructor, RouteKey, routeData);
+};
+
+const getInjectedArgs = (target: any, key: string) => {
+  let injectedArgMap = getMetadata(target, InjectedArgs);
+  if (!injectedArgMap) {
+    injectedArgMap = new Map();
+    setMetadata(target, InjectedArgs, injectedArgMap);
+  }
+
+  let injectedArgs: any[] = injectedArgMap.get(key);
+  if (!injectedArgs) {
+    injectedArgs = [];
+    injectedArgMap.set(key, injectedArgs);
+  }
+
+  return injectedArgs;
+};
+
+const injectArg = (target: any, key: string, descriptor: PropertyDescriptor, argGetter: () => any) => {
+  let injectedArgs = getInjectedArgs(target, key);
+  // If there are no args, then we need to decorate the method, otherwise we can assume the
+  // method has already been decorated
+  if (!injectedArgs.length) {
+    const original = descriptor.value;
+    descriptor.value = function(...originalArgs: any[]) {
+      const newArgs = [
+        ...getInjectedArgs(target, key).map((fn: () => any) => fn()),
+        ...originalArgs
+      ];
+      return original.apply(target, newArgs);
+    };
+  }
+
+  injectedArgs.unshift(argGetter);
+  return descriptor;
+};
+
+export const Param = (name: string, defaultValue: any = null) => (
+  target: any,
+  key: string,
+  descriptor: PropertyDescriptor
+) => {
+  return injectArg(target, key, descriptor, () => {
+    const { request } = getRequestContext();
+    const value = request.params[name];
+
+    return typeof value === 'undefined' ? defaultValue : value;
+  });
+};
+
+export const Query = (name: string, defaultValue: any = null) => (
+  target: any,
+  key: string,
+  descriptor: PropertyDescriptor
+) => {
+  return injectArg(target, key, descriptor, () => {
+    const { request } = getRequestContext();
+    const value = request.query[name];
+
+    return typeof value === 'undefined' ? defaultValue : value;
+  });
 };

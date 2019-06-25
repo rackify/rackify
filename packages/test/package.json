@@ -6,16 +6,12 @@
   "author": "Travis Peterson",
   "license": "MIT",
   "private": false,
-
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
-
   "dependencies": {
     "@pike/config": "1.0.0"
   },
-
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

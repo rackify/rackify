@@ -6,18 +6,17 @@
   "author": "Travis Peterson",
   "license": "MIT",
   "private": false,
-
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
-
   "dependencies": {
     "@pike/config": "1.0.0",
+    "async-listener": "^0.6.10",
+    "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",
-    "fastify": "^2.5.0"
+    "fastify": "^2.5.0",
+    "light-my-request": "^3.4.0"
   },
-
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

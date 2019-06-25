@@ -112,13 +112,10 @@ describe('app route definition', () => {
         @Get()
         async get() { return { hello: 'world' }; }
       }
+      const app = await testRoute(Controller);
 
-      try {
-        await testRoute(Controller);
-        fail('expected test app creation to throw an error');
-      } catch (err) {
-        expect(err.message).toEqual(expect.any(String));
-      }
+      const response = await app.request('/');
+      expect(response.body).toEqual({hello: 'world'});
     });
   });
 });

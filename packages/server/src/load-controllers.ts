@@ -26,8 +26,8 @@ const loadRoute = (app: PikeServer, Controller: any) => {
       const context = getMetadata(controller, ContextKey) || { name: 'unkown', file: 'unknown' };
       throw new Error(`PikeError: Could not resolve route for controller method: ${context.name} in ${context.file}\nDid you forget to define a route in either the 'Route' or method decorators?`);
     }
-    app.log.debug(`Registering route at ${m} ${route}`);
-    app.route(route);
+    app.fastify.log.debug(`Registering route at ${m} ${route}`);
+    app.fastify.route(route);
   }
 };
 

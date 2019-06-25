@@ -1,4 +1,4 @@
-import { pike, Get, Route } from '@pike/server';
+import { pike, Get, Route, getRequestContext } from '@pike/server';
 
 @Route()
 class IndexRoute {
@@ -8,9 +8,18 @@ class IndexRoute {
   }
 }
 
+@Route('/')
+class ContextRoute {
+  @Get()
+  async get(request: any) {
+    const { request: req } = getRequestContext();
+    return { isTheSame: req === request };
+  }
+}
+
 export async function createApp() {
   const app = await pike({
-    controllers: [IndexRoute, '**/*.controller.ts'],
+    controllers: [ContextRoute, IndexRoute, '**/*.controller.ts'],
     cwd: __dirname
   });
 
