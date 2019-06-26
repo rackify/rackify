@@ -1,0 +1,24 @@
+{
+  "name": "@pike/cli",
+  "version": "1.0.0",
+  "description": "pike cli",
+  "main": "lib/cli.js",
+  "author": "Travis Peterson",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "pike": "./bin/run.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "commander": "^2.20.0",
+    "fast-glob": "^3.0.2",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.134"
+  }
+}
