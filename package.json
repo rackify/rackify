@@ -6,7 +6,8 @@
       "lerna": "lerna",
       "build": "lerna run build",
       "build:watch": "lerna exec --parallel -- yarn build:watch",
-      "test": "jest"
+      "test": "jest",
+      "coverage": "jest --coverage"
     },
     "devDependencies": {
       "@types/jest": "^24.0.13",
