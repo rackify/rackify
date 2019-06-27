@@ -2,7 +2,6 @@
     "private": true,
     "scripts": {
       "prepare": "lerna bootstrap",
-      "prepublish": "yarn build",
       "lerna": "lerna",
       "build": "lerna run build",
       "build:watch": "lerna exec --parallel -- yarn build:watch",
