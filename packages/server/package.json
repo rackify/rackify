@@ -1,6 +1,6 @@
 {
   "name": "@pike/server",
-  "version": "1.0.0",
+  "version": "0.0.1-beta1",
   "description": "pike database integration powered by typeorm",
   "main": "lib/index.js",
   "author": "Travis Peterson",
@@ -11,7 +11,7 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
-    "@pike/config": "1.0.0",
+    "@pike/config": "0.0.1-beta1",
     "async-listener": "^0.6.10",
     "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",
