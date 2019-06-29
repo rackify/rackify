@@ -4,10 +4,13 @@
       "prepare": "lerna bootstrap",
       "prepublish": "yarn build",
       "lerna": "lerna",
+      "lexec": "lerna exec",
+      "lpubish": "lerna exec yarn publish",
       "build": "lerna run build",
       "build:watch": "lerna exec --parallel -- yarn build:watch",
       "test": "jest",
-      "coverage": "jest --coverage"
+      "coverage": "jest --coverage",
+      "version:bump": "lerna version --no-git-tag-version --no-push --exact"
     },
     "devDependencies": {
       "@types/jest": "^24.0.13",

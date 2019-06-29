@@ -1,20 +1,23 @@
 language: node_js
 node_js:
-  - "12.1"
-
+- '12.1'
 jobs:
   include:
-    - stage: "Tests"
-
-      before_script:
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build --debug
-
-      after_script:
-        - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
-
-      script:
-        - yarn run coverage
-
-
+  - stage: Tests
+    before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+      > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - "./cc-test-reporter before-build"
+    after_script:
+    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+    script:
+    - yarn run coverage
+  - stage: Deploy
+    on:
+      tags: true
+    script:
+    - yarn lpublish
+    email: "$NPM_EMAIL"
+    api_key: "$NPM_TOKEN"
+    skip_cleanup: true
