@@ -14,10 +14,13 @@ jobs:
     script:
     - yarn run coverage
   - stage: Deploy
-    on:
-      tags: true
-    script:
-    - yarn lpublish
-    email: "$NPM_EMAIL"
-    api_key: "$NPM_TOKEN"
-    skip_cleanup: true
+    if: tag IS present
+    node_js: "12.1"
+    deploy:
+      on:
+        tags: true
+      script:
+      - yarn lpublish
+      email: "$NPM_EMAIL"
+      api_key: "$NPM_TOKEN"
+      skip_cleanup: true
