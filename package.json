@@ -3,7 +3,7 @@
       "prepublish": "yarn build",
       "lerna": "lerna",
       "lexec": "lerna exec",
-      "publish:all": "lerna publish from-package --yes --npm-client yarn --npm-tag beta",
+      "publish:all": "lerna publish from-package --yes --npm-client npm --npm-tag beta",
       "build": "lerna run build",
       "build:watch": "lerna exec --parallel -- yarn build:watch",
       "test": "jest",
