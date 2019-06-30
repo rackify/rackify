@@ -4,7 +4,7 @@
       "prepublish": "yarn build",
       "lerna": "lerna",
       "lexec": "lerna exec",
-      "lpublish": "lerna exec yarn publish",
+      "lpublish": "lerna exec npm publish",
       "build": "lerna run build",
       "build:watch": "lerna exec --parallel -- yarn build:watch",
       "test": "jest",
