@@ -1,7 +1,6 @@
 {
     "private": true,
     "scripts": {
-      "prepare": "lerna bootstrap",
       "prepublish": "yarn build",
       "lerna": "lerna",
       "lexec": "lerna exec",
