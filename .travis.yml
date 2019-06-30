@@ -9,15 +9,15 @@ cache:
 
 jobs:
   include:
-  - stage: Tests
-    before_script:
-      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - chmod +x ./cc-test-reporter
-      - "./cc-test-reporter before-build"
-    after_script:
-      - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-    script:
-      - yarn run coverage
+  # - stage: Tests
+  #   before_script:
+  #     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  #     - chmod +x ./cc-test-reporter
+  #     - "./cc-test-reporter before-build"
+  #   after_script:
+  #     - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+  #   script:
+  #     - yarn run coverage
   - stage: Deploy
     # if: tag IS present
     script:
@@ -25,7 +25,7 @@ jobs:
     node_js: "12.1"
     before_deploy:
       - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
-      - npm config ls
+      - npm config set registry //registry.npmjs.org/
     deploy:
       node_js: "12.1"
       provider: script
