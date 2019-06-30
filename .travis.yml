@@ -25,13 +25,14 @@ jobs:
     node_js: "12.1"
     before_deploy:
       - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+      - npm config ls
     deploy:
       node_js: "12.1"
       provider: script
       # on:
       #   tags: true
       script:
-        - yarn lpublish
+        - yarn publish:all
       email: "$NPM_EMAIL"
       api_key: "$NPM_TOKEN"
       skip_cleanup: true
