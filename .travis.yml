@@ -25,7 +25,7 @@ jobs:
     node_js: "12.1"
     before_deploy:
       - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
-      - npm config set registry //registry.npmjs.org/
+      - echo "//registry.yarnpkg.com/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
     deploy:
       node_js: "12.1"
       provider: script
