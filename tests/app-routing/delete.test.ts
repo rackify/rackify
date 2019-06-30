@@ -1,5 +1,5 @@
-import { Delete, pike, PikeRequest } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Delete, pike, PikeRequest } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 
 describe('Delete decorator', () => {

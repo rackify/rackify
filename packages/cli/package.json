@@ -1,5 +1,5 @@
 {
-  "name": "@pike/cli",
+  "name": "@pikejs/cli",
   "version": "0.0.1-beta1",
   "description": "pike cli",
   "main": "lib/cli.js",

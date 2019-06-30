@@ -1,5 +1,5 @@
 import fastify from 'fastify';
-import { PikeServer } from '@pike/server';
+import { PikeServer } from '@pikejs/server';
 
 type TestRequestOptions = Partial<fastify.HTTPInjectOptions> | string;
 

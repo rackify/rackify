@@ -1,5 +1,5 @@
-import { Options, pike, PikeRequest } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Options, pike, PikeRequest } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 
 describe('Options decorator', () => {

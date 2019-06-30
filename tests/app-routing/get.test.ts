@@ -1,5 +1,5 @@
-import { Get, pike, PikeRequest, Param, Query } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Get, pike, PikeRequest, Param, Query } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 describe('Get decorator', () => {
   const testRoute = (route: any) => bootstrapTestHarness(() => pike({ controllers: [route] }))();

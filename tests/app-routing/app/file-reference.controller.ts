@@ -1,4 +1,4 @@
-import { Get, Route } from '@pike/server';
+import { Get, Route } from '@pikejs/server';
 
 @Route()
 export class FileReferenceRoute {

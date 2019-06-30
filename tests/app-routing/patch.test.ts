@@ -1,5 +1,5 @@
-import { Patch, pike, PikeRequest } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Patch, pike, PikeRequest } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 
 describe('Patch decorator', () => {

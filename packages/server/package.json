@@ -1,5 +1,5 @@
 {
-  "name": "@pike/server",
+  "name": "@pikejs/server",
   "version": "0.0.1-beta1",
   "description": "pike database integration powered by typeorm",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
-    "@pike/config": "0.0.1-beta1",
+    "@pikejs/config": "0.0.1-beta1",
     "async-listener": "^0.6.10",
     "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",

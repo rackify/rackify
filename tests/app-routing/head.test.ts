@@ -1,5 +1,5 @@
-import { Head, pike, PikeRequest } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Head, pike, PikeRequest } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 
 describe('Head decorator', () => {

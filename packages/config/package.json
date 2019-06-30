@@ -1,5 +1,5 @@
 {
-  "name": "@pike/config",
+  "name": "@pikejs/config",
   "version": "0.0.1-beta1",
   "description": "pike package configuration",
   "main": "lib/index.js",

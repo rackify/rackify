@@ -1,5 +1,5 @@
 {
-  "name": "@pike/package",
+  "name": "@pikejs/package",
   "version": "1.0.0",
   "description": "pike package template",
   "main": "lib/index.js",

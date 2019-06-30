@@ -1,4 +1,4 @@
-import { setMetadata, getMetadata } from '@pike/config';
+import { setMetadata, getMetadata } from '@pikejs/config';
 
 import { PikeServer } from './types';
 import { ContainerKey, AppKey } from './keys';

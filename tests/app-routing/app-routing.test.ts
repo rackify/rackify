@@ -1,5 +1,5 @@
-import { bootstrapTestHarness, TestApp } from '@pike/test';
-import { Get, Route, pike } from '@pike/server';
+import { bootstrapTestHarness, TestApp } from '@pikejs/test';
+import { Get, Route, pike } from '@pikejs/server';
 import { createApp } from './app/app-routing';
 
 const createTestApp = bootstrapTestHarness(createApp);

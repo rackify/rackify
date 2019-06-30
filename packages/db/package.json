@@ -1,5 +1,5 @@
 {
-  "name": "@pike/db",
+  "name": "@pikejs/db",
   "version": "0.0.1-beta1",
   "description": "pike database integration powered by typeorm",
   "main": "lib/index.js",

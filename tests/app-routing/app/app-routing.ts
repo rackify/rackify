@@ -1,4 +1,4 @@
-import { pike, Get, Route, getRequestContext } from '@pike/server';
+import { pike, Get, Route, getRequestContext } from '@pikejs/server';
 
 @Route()
 class IndexRoute {

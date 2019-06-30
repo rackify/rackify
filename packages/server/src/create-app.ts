@@ -2,7 +2,7 @@ import Fastify from 'fastify';
 import { kState } from 'fastify/lib/symbols';
 
 import http from 'http';
-import { setConfig, buildConfig, PikeAppConfig } from '@pike/config';
+import { setConfig, buildConfig, PikeAppConfig } from '@pikejs/config';
 // import { getConnection } from './db';
 import { loadControllers } from './load-controllers';
 import { PikeServer, PikeRequest, PikeReply } from './types';

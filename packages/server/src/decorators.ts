@@ -1,5 +1,5 @@
 import { posix } from 'path';
-import { getMetadata, setMetadata } from '@pike/config';
+import { getMetadata, setMetadata } from '@pikejs/config';
 import { RouteKey, ContextKey, InjectedArgs } from './keys';
 import { getRequestContext } from './context';
 

@@ -1,5 +1,5 @@
 import glob from 'fast-glob';
-import { getConfig, getMetadata } from '@pike/config';
+import { getConfig, getMetadata } from '@pikejs/config';
 
 import { RouteKey, ContextKey } from './keys';
 import { PikeServer } from './types';

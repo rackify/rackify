@@ -1,5 +1,5 @@
-import { Put, pike, PikeRequest } from '@pike/server';
-import { bootstrapTestHarness } from '@pike/test';
+import { Put, pike, PikeRequest } from '@pikejs/server';
+import { bootstrapTestHarness } from '@pikejs/test';
 
 
 describe('Put decorator', () => {
