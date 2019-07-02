@@ -1,12 +1,12 @@
 import glob from 'fast-glob';
-import { getConfig, getMetadata } from '@pikejs/config';
+import { getConfig, getMetadata } from '@rackify/config';
 
 import { RouteKey, ContextKey } from './keys';
-import { PikeServer } from './types';
+import { RackifyServer } from './types';
 import { getInstance } from './services';
 
 
-const loadRoute = (app: PikeServer, Controller: any) => {
+const loadRoute = (app: RackifyServer, Controller: any) => {
   if (typeof Controller !== 'function') {
     return;
   }
@@ -24,20 +24,20 @@ const loadRoute = (app: PikeServer, Controller: any) => {
 
     if (!route.url || route.url === '.') {
       const context = getMetadata(controller, ContextKey) || { name: 'unkown', file: 'unknown' };
-      throw new Error(`PikeError: Could not resolve route for controller method: ${context.name} in ${context.file}\nDid you forget to define a route in either the 'Route' or method decorators?`);
+      throw new Error(`RackifyError: Could not resolve route for controller method: ${context.name} in ${context.file}\nDid you forget to define a route in either the 'Route' or method decorators?`);
     }
     app.fastify.log.debug(`Registering route at ${m} ${route}`);
     app.fastify.route(route);
   }
 };
 
-const loadRoutesFromModule = (app: PikeServer, controllerModule: any) => {
+const loadRoutesFromModule = (app: RackifyServer, controllerModule: any) => {
   for (let exp in controllerModule) {
     loadRoute(app, controllerModule[exp]);
   }
 };
 
-export const loadControllers = async (app: PikeServer) => {
+export const loadControllers = async (app: RackifyServer) => {
   const config = getConfig(app);
 
   const { globs, routes } = config.controllers.reduce((memo, cfg) => {

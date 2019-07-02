@@ -1,6 +1,6 @@
-export { createApp as pike } from './create-app';
+export { createApp as rackify } from './create-app';
 
-export { PikeServer, PikeReply, PikeRequest } from './types';
+export { RackifyServer, RackifyReply, RackifyRequest } from './types';
 
 export {
   Param,

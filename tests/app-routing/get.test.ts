@@ -1,13 +1,13 @@
-import { Get, pike, PikeRequest, Param, Query } from '@pikejs/server';
-import { bootstrapTestHarness } from '@pikejs/test';
+import { Get, rackify, RackifyRequest, Param, Query } from '@rackify/server';
+import { bootstrapTestHarness } from '@rackify/test';
 
 describe('Get decorator', () => {
-  const testRoute = (route: any) => bootstrapTestHarness(() => pike({ controllers: [route] }))();
+  const testRoute = (route: any) => bootstrapTestHarness(() => rackify({ controllers: [route] }))();
 
   it('should support dynamic segments', async () => {
     class Controller {
       @Get(':id')
-      async get(request: PikeRequest) {
+      async get(request: RackifyRequest) {
         return { hello: request.params.id };
       }
     }

@@ -1,11 +1,11 @@
-const ConfigKey = Symbol('pike-config');
+const ConfigKey = Symbol('rackify-config');
 
 type AnyObj = { [key: string]: any };
 type GlobString = string;
 type RoutableClass = Function;
 type RouteConfig = GlobString | RoutableClass;
 
-export interface PikeAppConfig {
+export interface RackifyAppConfig {
   /**
    * Port for the server to listen on
    *
@@ -48,9 +48,9 @@ export interface PikeAppConfig {
   controllers: RouteConfig[]
 }
 
-export type PikeAppConfigOptions = Partial<PikeAppConfig>;
+export type RackifyAppConfigOptions = Partial<RackifyAppConfig>;
 
-const defaultConfig: PikeAppConfig = {
+const defaultConfig: RackifyAppConfig = {
   port: 3000,
   db: {},
   cwd: process.cwd(),
@@ -60,7 +60,7 @@ const defaultConfig: PikeAppConfig = {
 
 const isObject = (obj: any) => typeof obj === 'object' && !(obj instanceof Array) && obj !== null;
 
-export const buildConfig = (...sources: AnyObj[]): PikeAppConfig => {
+export const buildConfig = (...sources: AnyObj[]): RackifyAppConfig => {
   const obj: AnyObj = {};
 
   sources.forEach((source) => {
@@ -75,7 +75,7 @@ export const buildConfig = (...sources: AnyObj[]): PikeAppConfig => {
     }
   });
 
-  return obj as PikeAppConfig;
+  return obj as RackifyAppConfig;
 };
 
 export const getConfig = (appInstance: any) => {
@@ -84,10 +84,10 @@ export const getConfig = (appInstance: any) => {
     config = defaultConfig;
   }
 
-  return config as PikeAppConfig;
+  return config as RackifyAppConfig;
 };
 
-export const setConfig = (appInstance: any, configToSet: Partial<PikeAppConfig>) => {
+export const setConfig = (appInstance: any, configToSet: Partial<RackifyAppConfig>) => {
   const config = getConfig(appInstance);
   const newConfig = buildConfig({}, configToSet, config);
 

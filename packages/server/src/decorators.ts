@@ -1,5 +1,5 @@
 import { posix } from 'path';
-import { getMetadata, setMetadata } from '@pikejs/config';
+import { getMetadata, setMetadata } from '@rackify/config';
 import { RouteKey, ContextKey, InjectedArgs } from './keys';
 import { getRequestContext } from './context';
 

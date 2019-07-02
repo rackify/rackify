@@ -1,5 +1,5 @@
 import fastify from 'fastify';
-import { PikeServer } from '@pikejs/server';
+import { RackifyServer } from '@rackify/server';
 
 type TestRequestOptions = Partial<fastify.HTTPInjectOptions> | string;
 
@@ -12,7 +12,7 @@ export interface TestApp {
   app: any;
 }
 
-export type CreateAppFunc = () => Promise<PikeServer>;
+export type CreateAppFunc = () => Promise<RackifyServer>;
 
 const tryParse = (payload: string) => {
   try {

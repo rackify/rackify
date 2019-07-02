@@ -1,13 +1,13 @@
-import { setMetadata, getMetadata } from '@pikejs/config';
+import { setMetadata, getMetadata } from '@rackify/config';
 
-import { PikeServer } from './types';
+import { RackifyServer } from './types';
 import { ContainerKey, AppKey } from './keys';
 
-export const initializeServices = (app: PikeServer) => {
+export const initializeServices = (app: RackifyServer) => {
   setMetadata(app, ContainerKey, new Map());
 };
 
-export const getInstance = (app: PikeServer, Constructor: any) => {
+export const getInstance = (app: RackifyServer, Constructor: any) => {
   const container = getMetadata(app, ContainerKey);
 
   let instance = container.get(Constructor);

@@ -1,7 +1,7 @@
 {
-  "name": "@pikejs/package",
+  "name": "@rackify/package",
   "version": "1.0.0",
-  "description": "pike package template",
+  "description": "rackify package template",
   "main": "lib/index.js",
   "author": "Travis Peterson",
   "license": "MIT",

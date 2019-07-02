@@ -1,4 +1,4 @@
-import { pike, Get, Route, getRequestContext } from '@pikejs/server';
+import { rackify, Get, Route, getRequestContext } from '@rackify/server';
 
 @Route()
 class IndexRoute {
@@ -18,7 +18,7 @@ class ContextRoute {
 }
 
 export async function createApp() {
-  const app = await pike({
+  const app = await rackify({
     controllers: [ContextRoute, IndexRoute, '**/*.controller.ts'],
     cwd: __dirname
   });

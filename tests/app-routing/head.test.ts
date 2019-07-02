@@ -1,14 +1,14 @@
-import { Head, pike, PikeRequest } from '@pikejs/server';
-import { bootstrapTestHarness } from '@pikejs/test';
+import { Head, rackify, RackifyRequest } from '@rackify/server';
+import { bootstrapTestHarness } from '@rackify/test';
 
 
 describe('Head decorator', () => {
-  const testRoute = (route: any) => bootstrapTestHarness(() => pike({ controllers: [route] }))();
+  const testRoute = (route: any) => bootstrapTestHarness(() => rackify({ controllers: [route] }))();
 
   it('should support dynamic segments', async () => {
     class Controller {
       @Head(':id')
-      async get(request: PikeRequest) {
+      async get(request: RackifyRequest) {
         return { hello: request.params.id };
       }
     }

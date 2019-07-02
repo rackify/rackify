@@ -1,7 +1,7 @@
 {
-  "name": "@pikejs/server",
+  "name": "@rackify/server",
   "version": "0.0.1-beta1",
-  "description": "pike database integration powered by typeorm",
+  "description": "rackify database integration powered by typeorm",
   "main": "lib/index.js",
   "author": "Travis Peterson",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
-    "@pikejs/config": "0.0.1-beta1",
+    "@rackify/config": "0.0.1-beta1",
     "async-listener": "^0.6.10",
     "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",

@@ -1,6 +1,6 @@
 export {
-  PikeAppConfig,
-  PikeAppConfigOptions,
+  RackifyAppConfig,
+  RackifyAppConfigOptions,
   buildConfig,
   getConfig,
   setConfig

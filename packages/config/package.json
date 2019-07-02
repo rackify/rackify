@@ -1,7 +1,7 @@
 {
-  "name": "@pikejs/config",
+  "name": "@rackify/config",
   "version": "0.0.1-beta1",
-  "description": "pike package configuration",
+  "description": "rackify package configuration",
   "main": "lib/index.js",
   "author": "Travis Peterson",
   "license": "MIT",

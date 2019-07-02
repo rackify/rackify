@@ -1,5 +1,5 @@
-import { bootstrapTestHarness, TestApp } from '@pikejs/test';
-import { Get, Route, pike } from '@pikejs/server';
+import { bootstrapTestHarness, TestApp } from '@rackify/test';
+import { Get, Route, rackify } from '@rackify/server';
 import { createApp } from './app/app-routing';
 
 const createTestApp = bootstrapTestHarness(createApp);
@@ -36,7 +36,7 @@ describe('basic app creation', () => {
 
 describe('app route definition', () => {
 
-  const testRoute = (route: any) => bootstrapTestHarness(() => pike({ controllers: [route] }))();
+  const testRoute = (route: any) => bootstrapTestHarness(() => rackify({ controllers: [route] }))();
 
   describe('Route decorator namespacing', () => {
     let app: TestApp;

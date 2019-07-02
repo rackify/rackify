@@ -1,4 +1,4 @@
-import { Get, Route } from '@pikejs/server';
+import { Get, Route } from '@rackify/server';
 
 @Route()
 export class FileReferenceRoute {

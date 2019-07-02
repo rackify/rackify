@@ -1,11 +1,11 @@
 import { createNamespace, getNamespace } from './namespace';
-import { PikeRequest, PikeReply } from './types';
+import { RackifyRequest, RackifyReply } from './types';
 
 const CONTEXT_KEY = 'context';
 
 export interface RequestContext {
-  request: PikeRequest
-  reply: PikeReply
+  request: RackifyRequest
+  reply: RackifyReply
 }
 
 export const getContextNamespace = () => {
@@ -16,13 +16,13 @@ export const getContextNamespace = () => {
 export const getRequestContext = () => {
   const requestContext = getContextNamespace().get(CONTEXT_KEY);
   if (!requestContext) {
-    throw new Error('PikeError: Unable to resolve the request context');
+    throw new Error('RackifyError: Unable to resolve the request context');
   }
 
   return requestContext as RequestContext;
 };
 
-export const setRequestContext = (request: PikeRequest, reply: PikeReply) => {
+export const setRequestContext = (request: RackifyRequest, reply: RackifyReply) => {
   const requestContext: RequestContext = {
     request,
     reply

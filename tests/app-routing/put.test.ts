@@ -1,14 +1,14 @@
-import { Put, pike, PikeRequest } from '@pikejs/server';
-import { bootstrapTestHarness } from '@pikejs/test';
+import { Put, rackify, RackifyRequest } from '@rackify/server';
+import { bootstrapTestHarness } from '@rackify/test';
 
 
 describe('Put decorator', () => {
-  const testRoute = (route: any) => bootstrapTestHarness(() => pike({ controllers: [route] }))();
+  const testRoute = (route: any) => bootstrapTestHarness(() => rackify({ controllers: [route] }))();
 
   it('should support dynamic segments', async () => {
     class Controller {
       @Put(':id')
-      async get(request: PikeRequest) {
+      async get(request: RackifyRequest) {
         return { hello: request.params.id };
       }
     }

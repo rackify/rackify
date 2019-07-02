@@ -2,15 +2,15 @@ import Fastify from 'fastify';
 import { kState } from 'fastify/lib/symbols';
 
 import http from 'http';
-import { setConfig, buildConfig, PikeAppConfig } from '@pikejs/config';
+import { setConfig, buildConfig, RackifyAppConfig } from '@rackify/config';
 // import { getConnection } from './db';
 import { loadControllers } from './load-controllers';
-import { PikeServer, PikeRequest, PikeReply } from './types';
+import { RackifyServer, RackifyRequest, RackifyReply } from './types';
 import { initializeServices } from './services';
 import { setRequestContext, getContextNamespace } from './context';
 import { injectRequest } from './inject';
 
-export async function createApp(opts: Partial<PikeAppConfig>): Promise<PikeServer> {
+export async function createApp(opts: Partial<RackifyAppConfig>): Promise<RackifyServer> {
   // await getConnection();
   const config = buildConfig(opts);
 
@@ -45,10 +45,10 @@ export async function createApp(opts: Partial<PikeAppConfig>): Promise<PikeServe
 
   fastify.inject = inject as any;
 
-  const app = { fastify, inject } as PikeServer;
+  const app = { fastify, inject } as RackifyServer;
 
   setConfig(app, config);
-  app.fastify.addHook('onRequest', async (request: PikeRequest, reply: PikeReply) => {
+  app.fastify.addHook('onRequest', async (request: RackifyRequest, reply: RackifyReply) => {
     setRequestContext(request, reply );
   });
 
