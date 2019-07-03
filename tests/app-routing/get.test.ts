@@ -20,9 +20,10 @@ describe('Get decorator', () => {
   it('should be able to utilize the Param decorator', async () => {
     class Controller {
       @Get(':id')
-      @Param('nada')
-      @Param('id')
-      async get(nada: any, id: string) {
+      async get(@Param('nada') nada: any, @Param('id') id: string) {
+        if (typeof id !== 'string') {
+          throw new Error('id param did not decorate correctly');
+        }
         return { hello: id };
       }
     }
@@ -35,9 +36,7 @@ describe('Get decorator', () => {
   it('should be able to utilize Query decorator', async () => {
     class Controller {
       @Get(':id')
-      @Param('id')
-      @Query('nada')
-      async get(id: string, nada: any) {
+      async get(@Param('id') id: string, @Query('nada') nada: any) {
         return { hello: nada };
       }
     }

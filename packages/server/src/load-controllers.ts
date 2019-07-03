@@ -20,7 +20,7 @@ const loadRoute = (app: RackifyServer, Controller: any) => {
 
   for (let m in routeMap) {
     const route = routeMap[m];
-    route.handler = controller[m].bind(controller);
+    route.handler = route.handler.bind(controller);
 
     if (!route.url || route.url === '.') {
       const context = getMetadata(controller, ContextKey) || { name: 'unkown', file: 'unknown' };

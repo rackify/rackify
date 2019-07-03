@@ -19,7 +19,8 @@
     "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",
     "fastify": "^2.5.0",
-    "light-my-request": "^3.4.0"
+    "light-my-request": "^3.4.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {}
 }
