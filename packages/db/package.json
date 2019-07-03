@@ -1,6 +1,6 @@
 {
   "name": "@rackify/db",
-  "version": "0.0.1-beta1",
+  "version": "0.0.1-beta2",
   "description": "rackify database integration powered by typeorm",
   "main": "lib/index.js",
   "author": "Travis Peterson",
@@ -13,12 +13,8 @@
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
-
   "dependencies": {
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.18"
-  },
-
-  "devDependencies": {
   }
 }

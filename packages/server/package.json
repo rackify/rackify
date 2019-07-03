@@ -1,6 +1,6 @@
 {
   "name": "@rackify/server",
-  "version": "0.0.1-beta1",
+  "version": "0.0.1-beta2",
   "description": "rackify database integration powered by typeorm",
   "main": "lib/index.js",
   "author": "Travis Peterson",
@@ -14,13 +14,12 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
-    "@rackify/config": "0.0.1-beta1",
+    "@rackify/config": "0.0.1-beta2",
     "async-listener": "^0.6.10",
     "emitter-listener": "^1.1.2",
     "fast-glob": "^2.2.7",
     "fastify": "^2.5.0",
     "light-my-request": "^3.4.0",
     "reflect-metadata": "^0.1.13"
-  },
-  "devDependencies": {}
+  }
 }
