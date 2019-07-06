@@ -18,15 +18,21 @@ const loadRoute = (app: RackifyServer, Controller: any) => {
 
   const controller = getInstance(app, Controller);
 
-  for (let m in routeMap) {
-    const route = routeMap[m];
+  for (let key in routeMap) {
+    const route = routeMap[key];
     route.handler = route.handler.bind(controller);
+    // need to get the metadata from the Controller and look for the context metadata
+    const context = getMetadata(controller, ContextKey);
+
+    if (!context) {
+      throw new Error(`Internal RackifyError: Could not find context data for controller: ${Controller}`);
+    }
 
     if (!route.url || route.url === '.') {
-      const context = getMetadata(controller, ContextKey) || { name: 'unkown', file: 'unknown' };
       throw new Error(`RackifyError: Could not resolve route for controller method: ${context.name} in ${context.file}\nDid you forget to define a route in either the 'Route' or method decorators?`);
     }
-    app.fastify.log.debug(`Registering route at ${m} ${route}`);
+
+    app.fastify.log.debug(`Registering route at ${key} ${route}`);
     app.fastify.route(route);
   }
 };

@@ -1,54 +1,56 @@
 import 'reflect-metadata';
 import { getMetadata, setMetadata } from '@rackify/config';
-import { DecoratedFunc } from '../keys';
+import { ParamInjection } from '../keys';
 import { getRequestContext } from '../context';
 
 type AnyFunc = (...args: any[]) => any;
 
-const getDecoratedFuncMap = (target: any): Map<string, AnyFunc> => {
-  let decoratedFuncMap = getMetadata(target, DecoratedFunc);
-  if (!decoratedFuncMap) {
-    decoratedFuncMap = new Map();
-    setMetadata(target, DecoratedFunc, decoratedFuncMap);
+const getDecoratedFunctionMap = (target: any): Map<string, AnyFunc> => {
+  let decoratedFunctionMap = getMetadata(target, ParamInjection);
+  if (!decoratedFunctionMap) {
+    decoratedFunctionMap = new Map();
+    setMetadata(target, ParamInjection, decoratedFunctionMap);
   }
 
-  return decoratedFuncMap;
+  return decoratedFunctionMap;
 };
 
-const getDecoratedFunc = (target: any, key: string): AnyFunc => {
-  let decoratedFuncMap = getDecoratedFuncMap(target);
+export const getDecoratedFunc = (target: any, key: string): AnyFunc => {
+  let decoratedFunctionMap = getDecoratedFunctionMap(target);
 
-  let injectedFunc: any = decoratedFuncMap.get(key);
-  if (!injectedFunc) {
-    injectedFunc = target[key];
+  let decoratedFunc = decoratedFunctionMap.get(key);
+  if (!decoratedFunc) {
+    decoratedFunc = function(this: any, ...args: any[]) {
+      const context = this === global ? target : this;
+      return target[key].apply(context, args);
+    };
   }
 
-  return injectedFunc;
+  return decoratedFunc;
 };
 
 const setDecoratedFunc = (target: any, key: string, fn: AnyFunc): AnyFunc => {
-  let decoratedFuncMap = getDecoratedFuncMap(target);
+  let decoratedFunctionMap = getDecoratedFunctionMap(target);
 
-  decoratedFuncMap.set(key, fn);
+  decoratedFunctionMap.set(key, fn);
   return fn;
 };
 
 const injectArg = (target: any, key: string, index: number, argGetter: () => any) => {
-  const injectedFunc = getDecoratedFunc(target, key);
+  const injectionFunc = getDecoratedFunc(target, key);
 
-  const newFunc = function(this: any, ...args: any[]) {
-    const context = this || target;
+  function paramInjector(this: any, ...args: any[]) {
+    const context = this === global ? target : this;
     let value = argGetter();
-    return injectedFunc.apply(
+    return injectionFunc.apply(
       context,
       [...args.slice(0, index), value, ...args.slice(index + 1)]
     );
-  };
+  }
 
-  target[key] = newFunc;
-  setDecoratedFunc(target, key, newFunc);
+  setDecoratedFunc(target, key, paramInjector);
 
-  return injectedFunc;
+  return injectionFunc;
 };
 
 export const Param = (name: string) => (

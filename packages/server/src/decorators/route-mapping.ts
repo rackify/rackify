@@ -1,6 +1,7 @@
 import { posix } from 'path';
 import { getMetadata, setMetadata } from '@rackify/config';
 import { RouteKey, ContextKey } from '../keys';
+import { getDecoratedFunc } from './injection';
 
 enum RequestMethod {
   GET,
@@ -40,7 +41,7 @@ const createRequestMappingDecorator = (requestMethod: RequestMethod) => (path: s
 ) => {
   const routeData = getMetadata(target.constructor, RouteKey) || {};
   const method = RequestMethod[requestMethod];
-  const handler = target[key];
+  const handler = getDecoratedFunc(target, key);
   const name = `${target.constructor.name}.${key}`;
   let url = posix.join(path);
   if (!/^\//i.test(url)) {
