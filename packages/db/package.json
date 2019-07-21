@@ -1,6 +1,6 @@
 {
   "name": "@rackify/db",
-  "version": "0.0.1-beta2",
+  "version": "0.0.1-beta.3",
   "description": "rackify database integration powered by typeorm",
   "main": "lib/index.js",
   "author": "Travis Peterson",

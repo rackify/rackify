@@ -1,6 +1,6 @@
 {
   "name": "@rackify/config",
-  "version": "0.0.1-beta2",
+  "version": "0.0.1-beta.3",
   "description": "rackify package configuration",
   "main": "lib/index.js",
   "author": "Travis Peterson",
