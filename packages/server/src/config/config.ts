@@ -1,3 +1,5 @@
+import { RackifyServer } from '../types';
+
 const ConfigKey = Symbol('rackify-config');
 
 type AnyObj = { [key: string]: any };
@@ -5,6 +7,7 @@ type GlobString = string;
 type RoutableClass = Function;
 type RouteConfig = GlobString | RoutableClass;
 
+type BeforeControllersHook = (app: RackifyServer) => void
 export interface RackifyAppConfig {
   /**
    * Port for the server to listen on
@@ -45,7 +48,16 @@ export interface RackifyAppConfig {
    *
    * @defaultValue ['**\/*.controller.{ts, js}']
    */
-  controllers: RouteConfig[]
+  controllers: RouteConfig[],
+  /**
+   * A hook to be executed before rackify adds the controller routes to the server
+   * Ideal for setting up plugins or hooks on the fastify instance
+   *
+   * @type {function beforeControllers(app: RackifyServer) {}}
+   *
+   * @defaultValue null
+   */
+  beforeControllers: null | BeforeControllersHook
 }
 
 export type RackifyAppConfigOptions = Partial<RackifyAppConfig>;
@@ -55,7 +67,8 @@ const defaultConfig: RackifyAppConfig = {
   db: {},
   cwd: process.cwd(),
   fastify: {},
-  controllers: ['**/*.controller.{ts, js}']
+  controllers: ['**/*.controller.{ts, js}'],
+  beforeControllers: null
 };
 
 const isObject = (obj: any) => typeof obj === 'object' && !(obj instanceof Array) && obj !== null;

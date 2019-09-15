@@ -1,5 +1,5 @@
 import { posix } from 'path';
-import { getMetadata, setMetadata } from '@rackify/config';
+import { getMetadata, setMetadata } from '../config';
 import { RouteKey, ContextKey } from '../keys';
 import { getDecoratedFunc } from './injection';
 

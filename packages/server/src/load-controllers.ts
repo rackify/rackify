@@ -1,5 +1,5 @@
 import glob from 'fast-glob';
-import { getConfig, getMetadata } from '@rackify/config';
+import { getConfig, getMetadata } from './config';
 
 import { RouteKey, ContextKey } from './keys';
 import { RackifyServer } from './types';

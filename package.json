@@ -3,13 +3,14 @@
   "scripts": {
     "prepublish": "yarn build",
     "lerna": "lerna",
+    "link-all": "lerna exec yarn link",
     "lexec": "lerna exec",
     "publish:all": "lerna publish from-package --yes --npm-client npm --npm-tag beta",
     "build": "lerna run build",
     "build:watch": "lerna exec --parallel -- yarn build:watch",
     "test": "jest",
     "coverage": "jest --coverage",
-    "version:bump": "lerna version --no-git-tag-version --no-push --exact"
+    "version:bump": "lerna version --no-push --exact"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",

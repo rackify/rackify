@@ -1,4 +1,4 @@
-import { setMetadata, getMetadata } from '@rackify/config';
+import { setMetadata, getMetadata } from './config';
 
 import { RackifyServer } from './types';
 import { ContainerKey, AppKey } from './keys';

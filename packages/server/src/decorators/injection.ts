@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { getMetadata, setMetadata } from '@rackify/config';
+import { getMetadata, setMetadata } from '../config';
 import { ParamInjection } from '../keys';
 import { getRequestContext } from '../context';
 
