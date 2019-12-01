@@ -1,6 +1,6 @@
 {
   "name": "@rackify/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "rackify cli",
   "main": "lib/cli.js",
   "author": "Travis Peterson",
