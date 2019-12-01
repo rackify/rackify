@@ -11,3 +11,5 @@ export interface RackifyServer {
 
 export interface RackifyRequest extends fastify.FastifyRequest {}
 export interface RackifyReply extends fastify.FastifyReply<ServerResponse> {}
+
+export type RackifyRouteOptions = fastify.RouteOptions<Server, IncomingMessage, ServerResponse, fastify.DefaultQuery, fastify.DefaultParams, fastify.DefaultHeaders, any>

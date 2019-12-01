@@ -2,6 +2,7 @@ import { posix } from 'path';
 import { getMetadata, setMetadata } from '../config';
 import { RouteKey, ContextKey } from '../keys';
 import { getDecoratedFunc } from './injection';
+import { RackifyRouteOptions } from '../types';
 
 enum RequestMethod {
   GET,
@@ -35,22 +36,25 @@ function getContextFileName() {
   return 'unknown file';
 }
 
-const createRequestMappingDecorator = (requestMethod: RequestMethod) => (path: string = '') => (
+const createRequestMappingDecorator = (requestMethod: RequestMethod) => (path: string|Partial<RackifyRouteOptions> = '') => (
   target: any,
   key: string
 ) => {
-  const routeData = getMetadata(target.constructor, RouteKey) || {};
-  const method = RequestMethod[requestMethod];
-  const handler = getDecoratedFunc(target, key);
   const name = `${target.constructor.name}.${key}`;
-  let url = posix.join(path);
+  setMetadata(target, ContextKey, { name, key, file: getContextFileName() });
+
+  const routeData = getMetadata(target.constructor, RouteKey) || {};
+  const opts = typeof path === 'string' ? { url: path } : path;
+
+  let url = posix.join(opts.url || '');
   if (!/^\//i.test(url)) {
     url = `/${url}`;
   }
-  setMetadata(target, ContextKey, { name, key, file: getContextFileName() });
+  const method = RequestMethod[requestMethod];
+  const handler = getDecoratedFunc(target, key);
   setMetadata(target.constructor, RouteKey, {
     ...routeData,
-    [key]: { method, url, handler }
+    [key]: { ...opts, method, url, handler }
   });
 };
 
